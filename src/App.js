@@ -62,7 +62,7 @@ const VideoPlayer = () => {
 
   return (
     <div style={{ display: "flex", flexDirection: "column", height: "100vh" }}>
-      <div style={{ marginBottom: "20px", flexGrow: 1 }}>
+      <div style={{ marginBottom: "20px", flexGrow: 1, position: "relative" }}>
         <ReactPlayer
           url={DATA[activeIndex].url}
           playing={playing}
@@ -70,23 +70,38 @@ const VideoPlayer = () => {
           width="100%"
           height="100%"
         />
-      </div>
-      <div style={{ height: "40px", display: "none" }}>
-        <button
-          style={{ height: "100%", marginRight: "20px" }}
-          onClick={handleStop}
-        >
-          Стоп
-        </button>
-        <button
-          style={{ height: "100%" }}
-          onClick={() => {
-            setPlaying(true);
+        <div
+          style={{
+            position: "absolute",
+            opacity: 0.5,
+            top: 0,
+            bottom: 0,
+            left: 0,
+            right: 0,
+            background: "black",
+            zIndex: 111,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
           }}
         >
-          Играй
-        </button>
+          <button
+            style={{ height: "50px", marginRight: "20px", width: "150px" }}
+            onClick={handleStop}
+          >
+            Стоп
+          </button>
+          <button
+            style={{ height: "50px" }}
+            onClick={() => {
+              setPlaying(true);
+            }}
+          >
+            Играй
+          </button>
+        </div>
       </div>
+
       <div style={{ height: "150px" }}>
         <VideoThumbnail videos={DATA} onVideoClick={handleVideoClick} />
       </div>
