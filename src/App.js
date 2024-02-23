@@ -73,32 +73,42 @@ const VideoPlayer = () => {
         <div
           style={{
             position: "absolute",
-            opacity: 0.5,
             top: 0,
             bottom: 0,
             left: 0,
             right: 0,
-            background: "black",
+            background: "rgba(0, 0 ,0, 0)",
             zIndex: 111,
             display: "flex",
-            alignItems: "center",
+            alignItems: "flex-end",
             justifyContent: "center",
           }}
         >
-          <button
-            style={{ height: "50px", marginRight: "20px", width: "150px" }}
-            onClick={handleStop}
-          >
-            Стоп
-          </button>
-          <button
-            style={{ height: "50px" }}
-            onClick={() => {
-              setPlaying(true);
+          <div
+            style={{
+              background: playing ? "rgba(0, 0 ,0, 0)" : "green",
+              width: "100%",
+              height: "20%",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
             }}
           >
-            Играй
-          </button>
+            <button
+              style={{ height: "50px", width: "150px" }}
+              onClick={() => {
+                setPlaying(true);
+              }}
+            >
+              Играй
+            </button>
+            <button
+              style={{ height: "50px", marginLeft: "20px", width: "150px" }}
+              onClick={handleStop}
+            >
+              Стоп
+            </button>
+          </div>
         </div>
       </div>
 
@@ -112,6 +122,7 @@ const VideoPlayer = () => {
 export default VideoPlayer;
 
 const VideoThumbnail = ({ videos, onVideoClick }) => {
+  const [selectedIndex, setSelected] = useState(0);
   return (
     <div style={{ display: "flex", overflowX: "auto", height: "100%" }}>
       {videos.map((video, index) => (
@@ -121,8 +132,17 @@ const VideoThumbnail = ({ videos, onVideoClick }) => {
             video.img ||
             `https://img.youtube.com/vi/${video.url.split("=")[1]}/0.jpg`
           }
-          style={{ marginRight: "10px", cursor: "pointer" }}
-          onClick={() => onVideoClick(index)}
+          style={{
+            marginRight: "10px",
+            cursor: "pointer",
+            border: index === selectedIndex ? "10px solid green" : "",
+          }}
+          onClick={() => {
+            setSelected(index);
+            if (index === selectedIndex) {
+              onVideoClick(index);
+            }
+          }}
         />
       ))}
     </div>
