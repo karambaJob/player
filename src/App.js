@@ -16,11 +16,11 @@ const DATA = [
   },
   {
     url: "https://www.youtube.com/watch?v=4iHQev6oHEo",
-    title: "Тракторенок ту-ру-ру-ру-ру",
+    title: "Песенка про тракторенка",
   },
   {
     url: "https://www.youtube.com/watch?v=1TYl3jhfEDA",
-    title: "Маша и медведь - мультик про хрюшку",
+    title: "Маша и медведь мультик про хрюшку",
   },
 
   {
@@ -33,7 +33,7 @@ const DATA = [
   },
   {
     url: "https://www.youtube.com/watch?v=XkOiBQfiqTU",
-    title: "байки мэтра - про летающую тарелку",
+    title: "байки мэтра про летающую тарелку",
   },
   {
     url: "https://www.youtube.com/watch?v=dA5wFDP1SkQ&list=PL8XzBNh9xhcz2XwhGg7etnDGZHXRvRhId&index=5",
@@ -113,7 +113,11 @@ const VideoPlayer = () => {
       </div>
 
       <div style={{ height: "150px" }}>
-        <VideoThumbnail videos={DATA} onVideoClick={handleVideoClick} />
+        <VideoThumbnail
+          videos={DATA}
+          onVideoClick={handleVideoClick}
+          onVideoSelect={handleStop}
+        />
       </div>
     </div>
   );
@@ -121,7 +125,7 @@ const VideoPlayer = () => {
 
 export default VideoPlayer;
 
-const VideoThumbnail = ({ videos, onVideoClick }) => {
+const VideoThumbnail = ({ videos, onVideoClick, onVideoSelect }) => {
   const [selectedIndex, setSelected] = useState(0);
   return (
     <div style={{ display: "flex", overflowX: "auto", height: "100%" }}>
@@ -140,6 +144,7 @@ const VideoThumbnail = ({ videos, onVideoClick }) => {
             }}
             onClick={() => {
               setSelected(index);
+              onVideoSelect();
               if (index === selectedIndex) {
                 onVideoClick(index);
               }
