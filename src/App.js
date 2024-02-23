@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import ReactPlayer from "react-player";
 
 const DATA = [
@@ -12,7 +12,7 @@ const DATA = [
   },
   {
     url: "https://www.youtube.com/watch?v=0tSBxGHcaFA",
-    title: "Акуленок ту-ру-ру-ру-ру",
+    title: "Песенка про акуленка",
   },
   {
     url: "https://www.youtube.com/watch?v=4iHQev6oHEo",
@@ -126,25 +126,54 @@ const VideoThumbnail = ({ videos, onVideoClick }) => {
   return (
     <div style={{ display: "flex", overflowX: "auto", height: "100%" }}>
       {videos.map((video, index) => (
-        <img
-          key={index}
-          src={
-            video.img ||
-            `https://img.youtube.com/vi/${video.url.split("=")[1]}/0.jpg`
-          }
-          style={{
-            marginRight: "10px",
-            cursor: "pointer",
-            border: index === selectedIndex ? "10px solid green" : "",
-          }}
-          onClick={() => {
-            setSelected(index);
-            if (index === selectedIndex) {
-              onVideoClick(index);
+        <>
+          <img
+            key={index}
+            src={
+              video.img ||
+              `https://img.youtube.com/vi/${video.url.split("=")[1]}/0.jpg`
             }
-          }}
-        />
+            style={{
+              marginRight: "10px",
+              cursor: "pointer",
+              border: index === selectedIndex ? "10px solid green" : "",
+            }}
+            onClick={() => {
+              setSelected(index);
+              if (index === selectedIndex) {
+                onVideoClick(index);
+              }
+            }}
+          />
+        </>
       ))}
+      {<SoundPlayer name={videos[selectedIndex].title} />}
+    </div>
+  );
+};
+
+const SoundPlayer = ({ name }) => {
+  console.log("name: ", name);
+  const audioRef = useRef(null);
+
+  const loadSound = () => {
+    audioRef.current.src = process.env.PUBLIC_URL + `/audio/${name}.mp3`;
+  };
+
+  useEffect(() => {
+    loadSound();
+  }, [name]);
+
+  return (
+    <div>
+      <audio
+        ref={audioRef}
+        onCanPlay={() => {
+          audioRef.current.play();
+        }}
+        controls
+        style={{ display: "none" }}
+      />
     </div>
   );
 };
