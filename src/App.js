@@ -13,6 +13,26 @@ const DATA = [
     tags: [1],
   },
   {
+    url: "https://www.youtube.com/watch?v=q4x5u0Xn0oA",
+    title: "Синий трактор - Насекомые",
+    tags: [1],
+  },
+  {
+    url: "https://www.youtube.com/watch?v=nb3Er4FFxDE",
+    title: "Синий трактор - Бабайка",
+    tags: [1],
+  },
+  {
+    url: "https://www.youtube.com/watch?v=wxASnLPMYow",
+    title: "Синий трактор - Ягодки",
+    tags: [1],
+  },
+  {
+    url: "https://www.youtube.com/watch?v=LqjEFouRNMc",
+    title: "Синий трактор - Микробы",
+    tags: [1],
+  },
+  {
     url: "https://www.youtube.com/watch?v=0tSBxGHcaFA",
     title: "Песенка про акуленка",
   },
@@ -25,7 +45,27 @@ const DATA = [
     title: "Маша и медведь мультик про хрюшку",
     tags: [3],
   },
-
+  {
+    url: "https://www.youtube.com/watch?v=KYniUCGPGLs",
+    title: "Маша и каша",
+    tags: [3],
+  },
+  {
+    url: "https://www.youtube.com/watch?v=CU5o1wGnHsY&t=33s",
+    title: "Маша и дед мороз",
+    img: process.env.PUBLIC_URL + `/images/маша и дед мороз.png`,
+    tags: [3],
+  },
+  {
+    url: "https://www.youtube.com/watch?v=lMKqlFRCiu8",
+    title: "Маша про японию",
+    tags: [3],
+  },
+  {
+    url: "https://www.youtube.com/watch?v=wnapUUjPGJw",
+    title: "Маша и китайский новый год",
+    tags: [3],
+  },
   {
     url: "https://www.youtube.com/watch?v=lr28F6E3H_o",
     title: "смешарики нюша на велосипеде",
@@ -37,8 +77,43 @@ const DATA = [
     tags: [4],
   },
   {
+    url: "https://www.youtube.com/watch?v=qpw-7O72DP8",
+    title: "смешарики ля",
+    tags: [4],
+  },
+  {
+    url: "https://www.youtube.com/watch?v=ACKYp0lfP3o",
+    title: "смешарики лосяш и привязанность",
+    tags: [4],
+  },
+  {
+    url: "https://www.youtube.com/watch?v=wC-mrwnfQZ0",
+    title: "смешарики про финтики",
+    tags: [4],
+  },
+  {
     url: "https://www.youtube.com/watch?v=XkOiBQfiqTU",
     title: "байки мэтра про летающую тарелку",
+    tags: [2],
+  },
+  {
+    url: "https://www.youtube.com/watch?v=aWMYyL8XQP4",
+    title: "мэтр великий рестлер",
+    tags: [2],
+  },
+  {
+    url: "https://www.youtube.com/watch?v=nH64-U0HQXo",
+    title: "мэтр и быки",
+    tags: [2],
+  },
+  {
+    url: "https://www.youtube.com/watch?v=gfIsgxIVzbU",
+    title: "мэтр детектив",
+    tags: [2],
+  },
+  {
+    url: "https://www.youtube.com/watch?v=SeMRk4IgRIw",
+    title: "байки на луне",
     tags: [2],
   },
   {
@@ -52,6 +127,22 @@ const DATA = [
     tags: [5],
     title: "Бибика про погоду",
     img: "https://i.ytimg.com/vi/vLJahVX2nx0/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLD-u4P5CT2OM7wZwAkAmOy3kHPRow",
+  },
+  {
+    url: "https://www.youtube.com/watch?v=MVGEY3HOy2E",
+    tags: [5],
+    title: "Бибика животные африки",
+  },
+  {
+    url: "https://www.youtube.com/watch?v=WyeTqzcD8yo&t=81s",
+    tags: [5],
+    title: "Бибика про овощи",
+    img: "https://mult4mam.ru/social-thumb.php?vid=2562d3959",
+  },
+  {
+    url: "https://www.youtube.com/watch?v=8oJ0ldbIA3I",
+    tags: [5],
+    title: "Бибика домашние животные",
   },
 ];
 
@@ -114,17 +205,19 @@ const VideoPlayer = () => {
       {[...TOP_SCROLL, ...DATA].map((item) => (
         <SoundPlayer name={item.title} startPlay={item.title === lastTitle} />
       ))}
-      <div style={{ height: "100px" }}>
+      <div style={{ height: "150px" }}>
         <ScrollList
           items={TOP_SCROLL}
           hoverIndex={hoverTag}
           onHover={(index) => {
             setHover(index);
             setLastTitle(TOP_SCROLL[index].title);
+            handleStop();
           }}
           onActive={(index) => {
             setActiveTag(index);
             setActiveVideoIndex(0);
+            sethoverVideoIndex(0);
           }}
         />
       </div>
@@ -185,6 +278,7 @@ const VideoPlayer = () => {
           onHover={(index) => {
             sethoverVideoIndex(index);
             setLastTitle(CURRENT_DATA[index].title);
+            handleStop();
           }}
           onActive={(index) => {
             setActiveVideoIndex(index);
