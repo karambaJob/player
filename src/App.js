@@ -82,6 +82,10 @@ const TOP_SCROLL = [
   },
 ];
 
+function preventDefault(e) {
+  e.preventDefault();
+}
+
 const VideoPlayer = () => {
   const [playing, setPlaying] = useState(true);
   const [hoverTag, setHover] = useState(0);
@@ -98,6 +102,12 @@ const VideoPlayer = () => {
   const handleStop = () => {
     setPlaying(false);
   };
+
+  useEffect(() => {
+    document.body.addEventListener("touchmove", preventDefault, {
+      passive: false,
+    });
+  }, []);
 
   return (
     <div style={{ display: "flex", flexDirection: "column", height: "100vh" }}>
