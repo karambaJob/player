@@ -9,27 +9,27 @@ const DATA = [
   },
   {
     url: "https://www.youtube.com/watch?v=LbOve_UZZ54",
-    title: "Синий трактор - По полям",
+    title: "Синий трактор По полям",
     tags: [1],
   },
   {
     url: "https://www.youtube.com/watch?v=q4x5u0Xn0oA",
-    title: "Синий трактор - Насекомые",
+    title: "Насекомые",
     tags: [1],
   },
   {
     url: "https://www.youtube.com/watch?v=nb3Er4FFxDE",
-    title: "Синий трактор - Бабайка",
+    title: "Бабайка",
     tags: [1],
   },
   {
     url: "https://www.youtube.com/watch?v=wxASnLPMYow",
-    title: "Синий трактор - Ягодки",
+    title: "Ягодки",
     tags: [1],
   },
   {
     url: "https://www.youtube.com/watch?v=LqjEFouRNMc",
-    title: "Синий трактор - Микробы",
+    title: "Микробы",
     tags: [1],
   },
   {
