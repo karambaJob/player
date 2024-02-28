@@ -294,7 +294,13 @@ export default VideoPlayer;
 
 const ScrollList = ({ items, onHover, onActive, hoverIndex }) => {
   return (
-    <div style={{ display: "flex", overflowX: "auto", height: "100%" }}>
+    <div
+      style={{
+        display: "flex",
+        overflowX: "auto",
+        height: "100%",
+      }}
+    >
       {items.map((item, index) => (
         <>
           <img
@@ -306,7 +312,7 @@ const ScrollList = ({ items, onHover, onActive, hoverIndex }) => {
             style={{
               cursor: "pointer",
               border:
-                index === hoverIndex ? "10px solid green" : "10px solid black",
+                index === hoverIndex ? "10px solid green" : "20px solid black",
             }}
             onClick={() => {
               onHover(index);
