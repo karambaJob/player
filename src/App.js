@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import { act } from "react-dom/test-utils";
 import ReactPlayer from "react-player";
 
 const DATA = [
@@ -180,7 +181,7 @@ function preventDefault(e) {
 const VideoPlayer = () => {
   const [playing, setPlaying] = useState(true);
   const [hoverTag, setHover] = useState(0);
-  const [activeTag, setActiveTag] = useState(0);
+  const [activeTag, setActiveTag] = useState(-1);
   const [lastTitle, setLastTitle] = useState("");
   const [activeVideoIndex, setActiveVideoIndex] = useState(0);
   const [hoverVideoIndex, sethoverVideoIndex] = useState(0);
@@ -205,25 +206,13 @@ const VideoPlayer = () => {
       {[...TOP_SCROLL, ...DATA].map((item) => (
         <SoundPlayer name={item.title} startPlay={item.title === lastTitle} />
       ))}
-      <div style={{ height: "150px" }}>
-        <ScrollList
-          items={TOP_SCROLL}
-          hoverIndex={hoverTag}
-          onHover={(index) => {
-            setHover(index);
-            setLastTitle(TOP_SCROLL[index].title);
-            handleStop();
-          }}
-          onActive={(index) => {
-            setActiveTag(index);
-            setActiveVideoIndex(0);
-            sethoverVideoIndex(0);
-          }}
-        />
-      </div>
       <div style={{ marginBottom: "20px", flexGrow: 1, position: "relative" }}>
         <ReactPlayer
-          url={CURRENT_DATA[activeVideoIndex].url}
+          url={
+            CURRENT_DATA.length > 0
+              ? CURRENT_DATA[activeVideoIndex].url
+              : DATA[0].url
+          }
           playing={playing}
           controls={false}
           width="100%"
@@ -271,20 +260,53 @@ const VideoPlayer = () => {
         </div>
       </div>
 
-      <div style={{ height: "150px" }}>
-        <ScrollList
-          items={CURRENT_DATA}
-          hoverIndex={hoverVideoIndex}
-          onHover={(index) => {
-            sethoverVideoIndex(index);
-            setLastTitle(CURRENT_DATA[index].title);
-            handleStop();
-          }}
-          onActive={(index) => {
-            setActiveVideoIndex(index);
-            setPlaying(true);
-          }}
-        />
+      <div style={{ height: "150px", display: "flex" }}>
+        {activeTag > -1 ? (
+          <>
+            <button
+              style={{
+                width: "150px",
+                display: "block",
+                flexShrink: 0,
+                backgroundSize: "cover",
+                backgroundImage: `url("https://png.pngtree.com/png-clipart/20190517/original/pngtree-vector-back-icon-png-image_4267356.jpg")`,
+              }}
+              onClick={() => {
+                setActiveTag(-1);
+              }}
+            ></button>
+            <ScrollList
+              items={CURRENT_DATA}
+              hoverIndex={hoverVideoIndex}
+              onHover={(index) => {
+                sethoverVideoIndex(index);
+                setLastTitle(CURRENT_DATA[index].title);
+                handleStop();
+              }}
+              onActive={(index) => {
+                setActiveVideoIndex(index);
+                setPlaying(true);
+              }}
+            />
+          </>
+        ) : (
+          <>
+            <ScrollList
+              items={TOP_SCROLL}
+              hoverIndex={hoverTag}
+              onHover={(index) => {
+                setHover(index);
+                setLastTitle(TOP_SCROLL[index].title);
+                handleStop();
+              }}
+              onActive={(index) => {
+                setActiveTag(index);
+                setActiveVideoIndex(0);
+                sethoverVideoIndex(0);
+              }}
+            />
+          </>
+        )}
       </div>
     </div>
   );
