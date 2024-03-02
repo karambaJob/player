@@ -5,13 +5,13 @@ import ReactPlayer from "react-player";
 import "./App.css";
 
 function preventDefault(e) {
-  console.log("test");
   // e.preventDefault();
 }
 
 let tId = null;
 
 const VideoPlayer = () => {
+  const [volume, setVolume] = useState(1);
   const [isUserActive, setUserActive] = useState(false);
   const [playing, setPlaying] = useState(true);
   const [hoverTag, setHover] = useState(0);
@@ -46,7 +46,16 @@ const VideoPlayer = () => {
   return (
     <div className={"main " + (isUserActive ? "" : "userUnactive")}>
       {[...TOP_SCROLL, ...DATA].map((item) => (
-        <SoundPlayer name={item.title} startPlay={item.title === lastTitle} />
+        <SoundPlayer
+          name={item.title}
+          startPlay={item.title === lastTitle}
+          onStop={() => {
+            setVolume(1);
+          }}
+          onStart={() => {
+            setVolume(0.2);
+          }}
+        />
       ))}
       <div style={{ marginBottom: "20px", flexGrow: 1, position: "relative" }}>
         <ReactPlayer
@@ -57,6 +66,7 @@ const VideoPlayer = () => {
           }
           playing={playing}
           controls={false}
+          volume={volume}
           width="100%"
           height="100%"
         />
@@ -116,7 +126,7 @@ const VideoPlayer = () => {
               onHover={(index) => {
                 sethoverVideoIndex(index);
                 setLastTitle(CURRENT_DATA[index].title);
-                handleStop();
+                // handleStop();
               }}
               onActive={(index) => {
                 setActiveVideoIndex(index);
@@ -132,7 +142,7 @@ const VideoPlayer = () => {
               onHover={(index) => {
                 setHover(index);
                 setLastTitle(TOP_SCROLL[index].title);
-                handleStop();
+                // handleStop();
               }}
               onActive={(index) => {
                 setActiveTag(index);
@@ -156,7 +166,6 @@ const ScrollList = ({
   hoverIndex,
   activeVideoIndex,
 }) => {
-  console.log("activeVideoIndex: ", activeVideoIndex);
   return (
     <div
       style={{
@@ -194,7 +203,7 @@ const ScrollList = ({
   );
 };
 
-const SoundPlayer = ({ name, startPlay = false }) => {
+const SoundPlayer = ({ name, startPlay = false, onStart, onStop }) => {
   const audioRef = useRef(null);
   const [canPlay, setCanPlay] = useState(false);
 
@@ -208,7 +217,9 @@ const SoundPlayer = ({ name, startPlay = false }) => {
 
   useEffect(() => {
     if (startPlay && canPlay) {
+      console.log("start");
       audioRef.current.play();
+      onStart();
     }
   }, [startPlay]);
 
@@ -216,6 +227,10 @@ const SoundPlayer = ({ name, startPlay = false }) => {
     <div>
       <audio
         ref={audioRef}
+        onEnded={() => {
+          console.log("stop");
+          onStop();
+        }}
         onCanPlay={() => {
           setCanPlay(true);
         }}
