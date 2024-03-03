@@ -43,6 +43,8 @@ const VideoPlayer = () => {
     });
   }, []);
 
+  const JOINED_DATA = [...CURRENT_DATA, ...TOP_SCROLL];
+
   return (
     <div className={"main " + (isUserActive ? "" : "userUnactive")}>
       {[...TOP_SCROLL, ...DATA].map((item) => (
@@ -57,7 +59,7 @@ const VideoPlayer = () => {
           }}
         />
       ))}
-      <div style={{ marginBottom: "20px", flexGrow: 1, position: "relative" }}>
+      <div style={{ flexGrow: 1, position: "relative" }}>
         <ReactPlayer
           url={
             CURRENT_DATA.length > 0
@@ -109,8 +111,8 @@ const VideoPlayer = () => {
           <>
             <button
               style={{
-                width: "150px",
-                display: "block",
+                width: "250px",
+                display: "none",
                 flexShrink: 0,
                 backgroundSize: "cover",
                 backgroundImage: `url("https://png.pngtree.com/png-clipart/20190517/original/pngtree-vector-back-icon-png-image_4267356.jpg")`,
@@ -120,17 +122,24 @@ const VideoPlayer = () => {
               }}
             ></button>
             <ScrollList
-              items={CURRENT_DATA}
+              items={JOINED_DATA}
+              key={activeTag}
               hoverIndex={hoverVideoIndex}
               activeVideoIndex={activeVideoIndex}
               onHover={(index) => {
                 sethoverVideoIndex(index);
-                setLastTitle(CURRENT_DATA[index].title);
-                // handleStop();
+                setLastTitle(JOINED_DATA[index].title);
               }}
               onActive={(index) => {
-                setActiveVideoIndex(index);
-                setPlaying(true);
+                const data = JOINED_DATA[index];
+                if (!data.isTag) {
+                  setActiveVideoIndex(index);
+                  setPlaying(true);
+                } else {
+                  setActiveTag(index - CURRENT_DATA.length);
+                  setActiveVideoIndex(0);
+                  sethoverVideoIndex(0);
+                }
               }}
             />
           </>
@@ -142,7 +151,6 @@ const VideoPlayer = () => {
               onHover={(index) => {
                 setHover(index);
                 setLastTitle(TOP_SCROLL[index].title);
-                // handleStop();
               }}
               onActive={(index) => {
                 setActiveTag(index);
@@ -389,25 +397,31 @@ const DATA = [
 const TOP_SCROLL = [
   {
     title: "теремок тв",
+    isTag: true,
     img: "https://www.novochag.ru/upload/img_cache/479/479de871dbc335c7c125380b3411e472_ce_1899x1265x176x0_cropped_666x444.png",
   },
   {
     title: "синий трактор",
+    isTag: true,
     img: "https://avatars.yandex.net/get-music-content/5412783/a09cf826.p.4355577/m1000x1000",
   },
   {
+    isTag: true,
     title: "байки мэтра",
     img: "https://media.myshows.me/shows/760/a/97/a97c038b7c6ce14f96d8a0022a4b87b0.jpg",
   },
   {
+    isTag: true,
     title: "маша и медведь",
     img: "https://cdnn21.img.ria.ru/images/152264/38/1522643869_0:0:1600:900_600x0_80_0_0_1643e97c321f8bc6d1442cf5a5954071.jpg",
   },
   {
+    isTag: true,
     title: "смешарики",
     img: "https://www.karusel-tv.ru/media/suit/preview_full/media/image/2020/09/1599471598116137_1.png",
   },
   {
+    isTag: true,
     title: "Бибика",
     img: "https://i.ytimg.com/vi/g8AVQXoYWs4/maxresdefault.jpg",
   },

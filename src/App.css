@@ -1,3 +1,7 @@
+html, body {
+  overflow: hidden;
+}
+
 .main {
   display: flex; flex-direction: column; height: 100vh;
 }
@@ -7,14 +11,14 @@
 }
 
 .controls {
-  height: 150px; display: flex;
+  height: 250px; display: flex;
 }
 
 .previewWrap {
 }
 
 .preview {
-  width: 200px;
+  flex-shrink: 0;
   display: flex;
   cursor: pointer;
   box-sizing: border-box;
