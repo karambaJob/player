@@ -11,7 +11,7 @@ function preventDefault(e) {
 let tId = null;
 
 const VideoPlayer = () => {
-  const [onlySound, setOnlySound] = useState(true);
+  const [onlySound, setOnlySound] = useState(false);
   const [volume, setVolume] = useState(1);
   const [isUserActive, setUserActive] = useState(false);
   const [playing, setPlaying] = useState(true);
