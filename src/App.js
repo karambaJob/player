@@ -203,7 +203,8 @@ const ScrollList = ({
               `https://img.youtube.com/vi/${item.url.split("=")[1]}/0.jpg`
             }
             className={className}
-            onClick={() => {
+            onTouchEnd={() => {
+              console.log("click");
               onHover(index);
               if (index === hoverIndex) {
                 onActive(index);
