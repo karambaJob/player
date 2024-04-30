@@ -1,3 +1,33 @@
+// https://www.youtube.com/watch?v=nW_Le-QNwTg
+// смешарики славный город кострома
+
+// https://www.youtube.com/watch?v=wtF--lG5sSM
+// говорящие буквы
+
+// https://www.youtube.com/watch?v=_IuHXKaPJ_g
+// считалочка кенгуренка
+
+// https://www.youtube.com/watch?v=MQyEySdw4bI
+// бибика
+
+// https://www.youtube.com/watch?v=_EWVDa7UiYs
+// чик чирикино ла ла ла
+
+// https://www.youtube.com/watch?v=bEpP3ube-uM
+// смешарики алфавит
+
+// https://www.youtube.com/watch?v=uJdObWuZfW8
+// песня про числа
+
+// https://www.youtube.com/watch?v=XqZsoesa55w
+// танец акуленка
+
+// https://www.youtube.com/watch?v=LG6jaTbxiFs
+// синий трактор про мусоровоз
+
+// https://www.youtube.com/watch?v=Wl1NCmgXptY
+// смешарики город омск
+
 export const DATA = [
   {
     url: "https://www.youtube.com/watch?v=ezb55xSinoY",
@@ -89,28 +119,18 @@ export const DATA = [
     tags: [4],
   },
   {
-    url: "https://www.youtube.com/watch?v=XkOiBQfiqTU",
-    title: "байки мэтра про летающую тарелку",
+    url: "https://www.youtube.com/watch?v=1SOLF0pr7bY",
+    title: "мэтр и нло",
     tags: [2],
   },
   {
-    url: "https://www.youtube.com/watch?v=aWMYyL8XQP4",
-    title: "мэтр великий рестлер",
-    tags: [2],
-  },
-  {
-    url: "https://www.youtube.com/watch?v=nH64-U0HQXo",
-    title: "мэтр и быки",
-    tags: [2],
-  },
-  {
-    url: "https://www.youtube.com/watch?v=gfIsgxIVzbU",
+    url: "https://www.youtube.com/watch?v=ghewt4GdSMU",
     title: "мэтр детектив",
     tags: [2],
   },
   {
-    url: "https://www.youtube.com/watch?v=SeMRk4IgRIw",
-    title: "байки на луне",
+    url: "https://www.youtube.com/watch?v=qcHE5dh9dws",
+    title: "мэтр на луне",
     tags: [2],
   },
   {
@@ -140,6 +160,42 @@ export const DATA = [
     url: "https://www.youtube.com/watch?v=8oJ0ldbIA3I",
     tags: [5],
     title: "Бибика домашние животные",
+  },
+  {
+    title: "говорящие буквы",
+    url: "https://www.youtube.com/watch?v=wtF--lG5sSM",
+  },
+  {
+    title: "считалочка кенгуренка",
+    url: "https://www.youtube.com/watch?v=_IuHXKaPJ_g",
+  },
+  {
+    title: "бибика",
+    url: "https://www.youtube.com/watch?v=MQyEySdw4bI",
+  },
+  {
+    title: "чик чирикино ла ла ла",
+    url: "https://www.youtube.com/watch?v=_EWVDa7UiYs",
+  },
+  {
+    title: "смешарики алфавит",
+    url: "https://www.youtube.com/watch?v=bEpP3ube-uM",
+  },
+  {
+    title: "песня про числа",
+    url: "https://www.youtube.com/watch?v=uJdObWuZfW8",
+  },
+  {
+    title: "танец акуленка",
+    url: "https://www.youtube.com/watch?v=XqZsoesa55w",
+  },
+  {
+    title: "синий трактор про мусоровоз",
+    url: "https://www.youtube.com/watch?v=LG6jaTbxiFs",
+  },
+  {
+    title: "смешарики город омск",
+    url: "https://www.youtube.com/watch?v=Wl1NCmgXptY",
   },
 ];
 
