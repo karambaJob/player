@@ -12,7 +12,76 @@ function preventDefault(e) {
 
 let tId = null;
 
-const VideoPlayer = () => {
+const Page = () => {
+  // const [activePage, setActivePage] = useState("list");
+  const [activeVideoIndex, setActiveVideoIndex] = useState(0);
+  console.log("activeVideoIndex: ", activeVideoIndex);
+  const [hoverVideoIndex, sethoverVideoIndex] = useState(0);
+
+  return (
+    <div>
+      <div
+        onClick={() => {
+          setActiveVideoIndex(0);
+        }}
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100px",
+          height: "50px",
+          background: "yellow",
+          zIndex: 1000,
+        }}
+      >
+        Назад
+      </div>
+      {activeVideoIndex === 0 && (
+        <List
+          setActiveVideoIndex={setActiveVideoIndex}
+          activeVideoIndex={activeVideoIndex}
+          hoverVideoIndex={hoverVideoIndex}
+          sethoverVideoIndex={sethoverVideoIndex}
+        />
+      )}
+      {activeVideoIndex !== 0 && (
+        <VideoPlayer
+          defaultVideoIndex={activeVideoIndex}
+          defaultHoverIndex={activeVideoIndex}
+        />
+      )}
+    </div>
+  );
+};
+
+const List = ({
+  sethoverVideoIndex,
+  setActiveVideoIndex,
+  hoverVideoIndex,
+  activeVideoIndex,
+}) => {
+  return (
+    <div>
+      <ScrollList
+        items={DATA}
+        // key={activeTag}
+        hoverIndex={hoverVideoIndex}
+        activeVideoIndex={activeVideoIndex}
+        onHover={(index) => {
+          sethoverVideoIndex(index);
+          // setLastTitle(JOINED_DATA[index].title);
+        }}
+        onActive={(index) => {
+          // const data = JOINED_DATA[index];
+          setActiveVideoIndex(index);
+          // setPlaying(true);
+        }}
+      />
+    </div>
+  );
+};
+
+const VideoPlayer = ({ defaultVideoIndex = 0, defaultHoverIndex = 0 }) => {
   const [onlySound, setOnlySound] = useState(false);
   const [volume, setVolume] = useState(1);
   const [isUserActive, setUserActive] = useState(true);
@@ -20,9 +89,8 @@ const VideoPlayer = () => {
   const [hoverTag, setHover] = useState(0);
   const [activeTag, setActiveTag] = useState(-1);
   const [lastTitle, setLastTitle] = useState("");
-  const [activeVideoIndex, setActiveVideoIndex] = useState(0);
-  console.log("activeVideoIndex: ", activeVideoIndex);
-  const [hoverVideoIndex, sethoverVideoIndex] = useState(0);
+  const [activeVideoIndex, setActiveVideoIndex] = useState(defaultVideoIndex);
+  const [hoverVideoIndex, sethoverVideoIndex] = useState(defaultHoverIndex);
   const CURRENT_DATA = DATA.filter((item) => {
     return activeTag === 0
       ? !item.tags || item.tags.includes(activeTag)
@@ -143,15 +211,6 @@ const VideoPlayer = () => {
                 const data = JOINED_DATA[index];
                 setActiveVideoIndex(index);
                 setPlaying(true);
-
-                // if (!data.isTag) {
-                //   setActiveVideoIndex(index);
-                //   setPlaying(true);
-                // } else {
-                //   setActiveTag(index - CURRENT_DATA.length);
-                //   setActiveVideoIndex(0);
-                //   sethoverVideoIndex(0);
-                // }
               }}
             />
           </>
@@ -177,7 +236,7 @@ const VideoPlayer = () => {
   );
 };
 
-export default VideoPlayer;
+export default Page;
 
 const SoundSvg = () => {
   return (
