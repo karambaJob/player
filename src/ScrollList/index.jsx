@@ -32,6 +32,7 @@ const ScrollList = ({
             }
             className={className}
             onTouchEnd={() => {
+              console.log("index: ", index);
               onHover(index);
               if (index === hoverIndex) {
                 onActive(index);

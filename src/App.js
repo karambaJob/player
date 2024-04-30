@@ -21,6 +21,7 @@ const VideoPlayer = () => {
   const [activeTag, setActiveTag] = useState(-1);
   const [lastTitle, setLastTitle] = useState("");
   const [activeVideoIndex, setActiveVideoIndex] = useState(0);
+  console.log("activeVideoIndex: ", activeVideoIndex);
   const [hoverVideoIndex, sethoverVideoIndex] = useState(0);
   const CURRENT_DATA = DATA.filter((item) => {
     return activeTag === 0
@@ -46,7 +47,8 @@ const VideoPlayer = () => {
     });
   }, []);
 
-  const JOINED_DATA = [...CURRENT_DATA, ...TOP_SCROLL];
+  // const JOINED_DATA = [...CURRENT_DATA, ...TOP_SCROLL];
+  const JOINED_DATA = DATA;
 
   return (
     <div className={"main " + (isUserActive ? "" : "userUnactive")}>
@@ -65,8 +67,8 @@ const VideoPlayer = () => {
       <div style={{ flexGrow: 1, position: "relative" }}>
         <ReactPlayer
           url={
-            CURRENT_DATA.length > 0
-              ? CURRENT_DATA[activeVideoIndex].url
+            JOINED_DATA.length > 0
+              ? JOINED_DATA[activeVideoIndex].url
               : DATA[0].url
           }
           playing={playing}
@@ -113,7 +115,7 @@ const VideoPlayer = () => {
       </div>
 
       <div className="controls">
-        {activeTag > -1 ? (
+        {true || activeTag > -1 ? (
           <>
             <button
               style={{
@@ -139,14 +141,17 @@ const VideoPlayer = () => {
               }}
               onActive={(index) => {
                 const data = JOINED_DATA[index];
-                if (!data.isTag) {
-                  setActiveVideoIndex(index);
-                  setPlaying(true);
-                } else {
-                  setActiveTag(index - CURRENT_DATA.length);
-                  setActiveVideoIndex(0);
-                  sethoverVideoIndex(0);
-                }
+                setActiveVideoIndex(index);
+                setPlaying(true);
+
+                // if (!data.isTag) {
+                //   setActiveVideoIndex(index);
+                //   setPlaying(true);
+                // } else {
+                //   setActiveTag(index - CURRENT_DATA.length);
+                //   setActiveVideoIndex(0);
+                //   sethoverVideoIndex(0);
+                // }
               }}
             />
           </>
