@@ -7,12 +7,16 @@ const ScrollList = ({
   hoverIndex,
   activeVideoIndex,
 }) => {
+  const repeat = Math.round(items.length / 3);
+
   return (
     <div
       style={{
-        display: "flex",
+        display: "grid",
         overflowX: "auto",
         height: "100%",
+        gridTemplateColumns: "repeat(" + repeat + ", 300px)",
+        gap: "20px",
       }}
     >
       {items.map((item, index) => {
